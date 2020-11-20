@@ -4,7 +4,7 @@
 #include <string>
 #include "BigInteger.h"
 
-
+BigInteger::BigInteger() {}
 BigInteger::BigInteger(int x) {
         if (x < 0)
         {
@@ -100,7 +100,67 @@ const BigInteger operator-(BigInteger a, const BigInteger& b) {
         a.del_zeros();
         return a;
 }
+const BigInteger operator*(const BigInteger& a, const BigInteger& b) {
+        BigInteger result = 0;
+        result.nums.resize(a.nums.size() + b.nums.size());
+        for (size_t i = 0; i < a.nums.size(); ++i) {
+                int ost = 0;
+                for (size_t j = 0; j < b.nums.size() || ost != 0; ++j) {
+                        long long cur = result.nums[i + j] +
+                                a.nums[i] * 1LL * (j < b.nums.size() ? b.nums[j] : 0) + ost;
+                        result.nums[i + j] = static_cast<int>(cur % BigInteger::MOD);
+                        ost = static_cast<int>(cur / BigInteger::MOD);
+                }
+        }
 
+        result.minus = (b.minus != a.minus);
+        result.del_zeros();
+        return result;
+}
+void BigInteger::shift() {
+        if (this->nums.size() == 0) {
+                this->nums.push_back(0);
+                return;
+        }
+        this->nums.push_back(this->nums[this->nums.size() - 1]);
+        for (size_t i = this->nums.size() - 2; i > 0; --i) this->nums[i] = this->nums[i - 1];
+        this->nums[0] = 0;
+}
+const BigInteger operator/(const BigInteger& left, const BigInteger& right) {
+        // на ноль делить нельзя
+        if (right == 0) throw "Divide by zero";
+        BigInteger b = right;
+        b.minus = false;
+        BigInteger result = 0, current = 0;
+        result.nums.resize(left.nums.size());
+        for (long long i = static_cast<long long>(left.nums.size()) - 1; i >= 0; --i) {
+                current.shift();
+                current.nums[0] = left.nums[i];
+                current.del_zeros();
+                int x = 0, l = 0, r = BigInteger::MOD;
+                while (l <= r) {
+                        int m = (l + r) / 2;
+                        BigInteger t = b * m;
+                        if (t <= current) {
+                                x = m;
+                                l = m + 1;
+                        }
+                        else r = m - 1;
+                }
+ 
+                result.nums[i] = x;
+                current = current - b * x;
+        }
+ 
+        result.minus = left.minus != right.minus;
+        result.del_zeros();
+        return result;
+}
+const BigInteger operator %(const BigInteger& a, const BigInteger& b) {
+        BigInteger result = a - (a / b) * b;
+        if (result.minus) result += b;
+        return result;
+}
 bool operator==(const BigInteger& a, const BigInteger& b) {
         if (a.minus != b.minus) return false;
         if (a.nums.empty()) {
@@ -150,4 +210,10 @@ bool operator>(const BigInteger& a, const BigInteger& b) {
  
 bool operator>=(const BigInteger& a, const BigInteger& b) {
         return !(a < b);
+}
+
+int main() {
+        BigInteger p = 1;
+
+        
 }
