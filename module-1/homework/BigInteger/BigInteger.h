@@ -3,26 +3,26 @@
 
 #include <vector>
 #include <string>
-#include <ostream>
+#include <iostream>
 
 void my_reverse(std::string &);
 
 class BigInteger
 {
   static const int MOD = 1000000000;
-  std::vector<int32_t> _digits;
-  bool _is_negative;
+  std::vector<int> _digits;
+  bool minus;
 
-  void _remove_leading_zeros();
-  void _shift_left();
-  bool _abs_low(const BigInteger &);
-  void _abs_add(const BigInteger &);
-  void _abs_dif(const BigInteger &, bool);
-  std::string toString() const;
+  void remove_leading_zeros();
+  void shift_left();
+  bool abs_low(const BigInteger &);
+  void abs_add(const BigInteger &);
+  void abs_dif(const BigInteger &, bool);
 
 public:
+  std::string toString() const;
   BigInteger();
-  BigInteger(int32_t);
+  BigInteger(int);
   explicit BigInteger(std::string);
 
   operator bool() const;
