@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -23,6 +24,8 @@
     </expand>
     <select />
   </component>
+=======
+>>>>>>> master
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated />
   </component>
@@ -32,10 +35,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="fe1d1864-32b7-4a8e-9943-cb1cce9fdf16" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/module-1/homework/BigInteger/BigInteger.cpp" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/module-1/homework/BigInteger/BigInteger.h" afterDir="false" />
     </list>
+=======
+    <list default="true" id="731494a5-8c42-42c0-b153-f0c1b224e45d" name="Default Changelist" comment="" />
+>>>>>>> master
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,10 +54,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
   <component name="MacroExpansionManager">
     <option name="directoryName" value="cjmn4vny" />
   </component>
   <component name="ProjectId" id="1k6RIxP0IQtIbRr4xvjg6SaDM8J" />
+=======
+  <component name="ProjectId" id="1kemrKkyJEBhilkyS9hY1phDRv2" />
+>>>>>>> master
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -60,6 +71,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
+<<<<<<< HEAD
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager">
@@ -68,22 +80,35 @@
         <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+=======
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/module-1/homework/BigInteger" />
+>>>>>>> master
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="fe1d1864-32b7-4a8e-9943-cb1cce9fdf16" name="Default Changelist" comment="" />
       <created>1605018981275</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1605018981275</updated>
       <workItem from="1605018985025" duration="797000" />
+=======
+      <changelist id="731494a5-8c42-42c0-b153-f0c1b224e45d" name="Default Changelist" comment="" />
+      <created>1606069632279</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606069632279</updated>
+      <workItem from="1606069635532" duration="42000" />
+>>>>>>> master
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+<<<<<<< HEAD
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -94,5 +119,12 @@
         </entry>
       </map>
     </option>
+=======
+  <component name="WindowStateProjectService">
+    <state x="781" y="298" width="424" height="491" key="FileChooserDialogImpl" timestamp="1606069675089">
+      <screen x="0" y="27" width="1920" height="987" />
+    </state>
+    <state x="781" y="298" width="424" height="491" key="FileChooserDialogImpl/0.27.1920.987@0.27.1920.987" timestamp="1606069675089" />
+>>>>>>> master
   </component>
 </project>
