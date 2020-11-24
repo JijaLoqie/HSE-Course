@@ -1,7 +1,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "BigInteger.h"
+#include "biginteger.h"
 
 void my_reverse(std::string &a)
 {
@@ -411,11 +411,4 @@ const BigInteger operator%(const BigInteger &left, const BigInteger &right)
 BigInteger &BigInteger::operator%=(const BigInteger &right)
 {
         return (*this) = (*this) % right;
-}
-
-int main()
-{
-        BigInteger p1, p2;
-        std::cin >> p1 >> p2;
-        std::cout << p1 + p2 << std::endl;
 }
