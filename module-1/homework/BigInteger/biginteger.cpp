@@ -1,12 +1,12 @@
-#include <vector>
-#include <string>
 #include <iostream>
+#include <string>
+#include <vector>
 #include "biginteger.h"
 
-void my_reverse(std::string &a)
+void my_reverse(std::string& a)
 {
-        int n = a.size();
-        for (int i = 0; i < n / 2; ++i)
+        size_t n = a.size();
+        for (size_t i = 0; i < n / 2; ++i)
         {
                 std::swap(a[i], a[n - i - 1]);
         }
@@ -21,10 +21,8 @@ void BigInteger::remove_leading_zeros()
                 minus = false;
 }
 
-BigInteger::BigInteger()
-{
-        minus = false;
-}
+BigInteger::BigInteger() : minus(false)
+{}
 BigInteger::BigInteger(std::string NewCur)
 {
         if (NewCur.empty())
@@ -81,7 +79,7 @@ std::string BigInteger::toString() const
 {
         int n = _digits.size();
         std::string result;
-        if (n != 0 && !(n == 1 && this->_digits[0] == 0))
+        if (n != 0 && !(n == 1 && _digits[0] == 0))
         {
                 for (int i = 0; i + 1 < n; ++i)
                 {
@@ -109,19 +107,19 @@ std::string BigInteger::toString() const
         }
         return result;
 }
-std::ostream &operator<<(std::ostream &out, const BigInteger &bi)
+std::ostream& operator<<(std::ostream& out, const BigInteger& bi)
 {
         out << bi.toString();
         return out;
 }
-std::istream &operator>>(std::istream &in, BigInteger &bi)
+std::istream& operator>>(std::istream& in, BigInteger& bi)
 {
         std::string newS;
         in >> newS;
         bi = BigInteger(newS);
         return in;
 }
-bool operator<(const BigInteger &left, const BigInteger &right)
+bool operator<(const BigInteger& left, const BigInteger& right)
 {
         if (left.minus != right.minus)
         {
@@ -157,24 +155,24 @@ bool operator<(const BigInteger &left, const BigInteger &right)
         }
         return false;
 }
-bool operator!=(const BigInteger &left, const BigInteger &right)
+bool operator!=(const BigInteger& left, const BigInteger& right)
 {
         return left < right || right < left;
 }
 
-bool operator==(const BigInteger &left, const BigInteger &right)
+bool operator==(const BigInteger& left, const BigInteger& right)
 {
         return !(left != right);
 }
-bool operator>(const BigInteger &left, const BigInteger &right)
+bool operator>(const BigInteger& left, const BigInteger& right)
 {
         return right < left;
 }
-bool operator<=(const BigInteger &left, const BigInteger &right)
+bool operator<=(const BigInteger& left, const BigInteger& right)
 {
         return !(right < left);
 }
-bool operator>=(const BigInteger &left, const BigInteger &right)
+bool operator>=(const BigInteger& left, const BigInteger& right)
 {
         return !(left < right);
 }
@@ -189,19 +187,19 @@ BigInteger BigInteger::operator-() const
         }
         return result;
 }
-BigInteger operator+(const BigInteger &left, const BigInteger &right)
+BigInteger operator+(const BigInteger& left, const BigInteger& right)
 {
         BigInteger result(left);
         result += right;
         return result;
 }
-bool BigInteger::abs_low(const BigInteger &right)
+bool BigInteger::abs_low(const BigInteger& right)
 {
         if (_digits.size() != right._digits.size())
         {
                 return _digits.size() < right._digits.size();
         }
-        for (int i = static_cast<int>(right._digits.size()) - 1; i >= 0; --i)
+        for (std::size_t i = right._digits.size() - 1; i >= 0; --i)
         {
                 if (_digits[i] != right._digits[i])
                 {
@@ -211,16 +209,16 @@ bool BigInteger::abs_low(const BigInteger &right)
         return false;
 }
 
-void BigInteger::abs_add(const BigInteger &right)
+void BigInteger::abs_add(const BigInteger& right)
 {
-        int mx = std::max(right._digits.size(), _digits.size());
-        _digits.resize(mx);
+        int max = std::max(right._digits.size(), _digits.size());
+        _digits.resize(max);
         for (int i = 0; i < right._digits.size(); ++i)
         {
                 _digits[i] += right._digits[i];
                 if (_digits[i] >= BigInteger::MOD)
                 {
-                        if (i == mx - 1)
+                        if (i == max - 1)
                         {
                                 _digits.push_back(0);
                         }
@@ -230,41 +228,34 @@ void BigInteger::abs_add(const BigInteger &right)
         }
 }
 
-void BigInteger::abs_dif(const BigInteger &right, bool is_lower)
+void BigInteger::abs_dif(const BigInteger& right, bool is_lower)
 {
-        int mn = std::min(right._digits.size(), _digits.size());
-        int mx = std::max(right._digits.size(), _digits.size());
-        _digits.resize(mx);
-        for (int i = 0; i < mn; ++i)
+        int min = std::min(right._digits.size(), _digits.size());
+        int max = std::max(right._digits.size(), _digits.size());
+        _digits.resize(max);
+        for (int i = 0; i < min; ++i)
         {
-                if (is_lower)
-                {
-                        _digits[i] = right._digits[i] - _digits[i];
-                }
-                else
-                {
-                        _digits[i] = _digits[i] - right._digits[i];
-                }
+                _digits[i] = islower ? (right._digits[i] - _digits[i]) : (_digits[i] - right._digits[i]);
         }
         if (is_lower)
         {
-                for (int i = mn; i < mx; ++i)
+                for (int i = min; i < max; ++i)
                 {
                         _digits[i] = right._digits[i];
                 }
         }
-        for (int i = 0; i < mn; ++i)
+        for (int i = 0; i < min; ++i)
         {
                 if (_digits[i] < 0)
                 {
-                        if (i + 1 != mx)
+                        if (i + 1 != max)
                         {
                                 _digits[i] += BigInteger::MOD;
                                 _digits[i + 1]--;
                         }
                 }
         }
-        for (int i = mn; i + 1 < mx && _digits[i] < 0; ++i)
+        for (int i = min; i + 1 < max && _digits[i] < 0; ++i)
         {
                 _digits[i] += BigInteger::MOD;
                 _digits[i + 1]--;
@@ -272,7 +263,7 @@ void BigInteger::abs_dif(const BigInteger &right, bool is_lower)
         remove_leading_zeros();
 }
 
-const BigInteger operator*(const BigInteger &left, const BigInteger &right)
+const BigInteger operator*(const BigInteger& left, const BigInteger& right)
 {
         BigInteger result;
         result._digits.resize(left._digits.size() + right._digits.size() + 1);
@@ -309,7 +300,7 @@ void BigInteger::shift_left()
         }
         _digits[0] = 0;
 }
-BigInteger &BigInteger::operator+=(const BigInteger &right)
+BigInteger& BigInteger::operator+=(const BigInteger& right)
 {
         if (minus == right.minus)
         {
@@ -326,9 +317,9 @@ BigInteger &BigInteger::operator+=(const BigInteger &right)
         }
         return (*this);
 }
-BigInteger &BigInteger::operator++() { return (*this) += BigInteger(1); }
+BigInteger& BigInteger::operator++() { return (*this) += BigInteger(1); }
 
-BigInteger &BigInteger::operator--() { return (*this) -= BigInteger(1); }
+BigInteger& BigInteger::operator--() { return (*this) -= BigInteger(1); }
 BigInteger BigInteger::operator++(int)
 {
         ++(*this);
@@ -341,24 +332,24 @@ BigInteger BigInteger::operator--(int)
         return (*this) + BigInteger(1);
 }
 
-BigInteger &BigInteger::operator-=(const BigInteger &right)
+BigInteger& BigInteger::operator-=(const BigInteger& right)
 {
         return (*this) += (-right);
 }
-BigInteger operator-(const BigInteger &left, const BigInteger &right)
+BigInteger operator-(const BigInteger& left, const BigInteger& right)
 {
         BigInteger ans(left);
         ans -= right;
         return ans;
 }
 
-BigInteger operator/(const BigInteger &left, const BigInteger &right)
+BigInteger operator/(const BigInteger& left, const BigInteger& right)
 {
         BigInteger b = right;
         b.minus = false;
         BigInteger result, curr;
         result._digits.resize(left._digits.size());
-        for (long long i = (long long)(left._digits.size()) - 1; i >= 0; --i)
+        for (int i = left._digits.size() - 1; i >= 0; --i)
         {
                 curr.shift_left();
                 curr._digits[0] = left._digits[i];
@@ -387,16 +378,16 @@ BigInteger operator/(const BigInteger &left, const BigInteger &right)
         result.remove_leading_zeros();
         return result;
 }
-BigInteger &BigInteger::operator*=(const BigInteger &right)
+BigInteger& BigInteger::operator*=(const BigInteger& right)
 {
         return (*this) = (*this) * right;
 }
-BigInteger &BigInteger::operator/=(const BigInteger &right)
+BigInteger& BigInteger::operator/=(const BigInteger& right)
 {
         return (*this) = (*this) / right;
 }
 
-const BigInteger operator%(const BigInteger &left, const BigInteger &right)
+const BigInteger operator%(const BigInteger& left, const BigInteger& right)
 {
         BigInteger result = left - (left / right) * right;
         if (result.minus)
@@ -408,7 +399,7 @@ const BigInteger operator%(const BigInteger &left, const BigInteger &right)
         return result;
 }
 
-BigInteger &BigInteger::operator%=(const BigInteger &right)
+BigInteger& BigInteger::operator%=(const BigInteger& right)
 {
         return (*this) = (*this) % right;
 }

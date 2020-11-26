@@ -1,4 +1,4 @@
-#ifndef BIG_INTEGER_H // include guard
+#ifndef BIG_INTEGER_H
 #define BIG_INTEGER_H
 
 #include <vector>
@@ -9,6 +9,7 @@ void my_reverse(std::string &);
 
 class BigInteger
 {
+private:
   static const int MOD = 1000000000;
   std::vector<int> _digits;
   bool minus;

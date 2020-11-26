@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/dmitry/Рабочий стол/HSE-Course/module-1/homework/BigInteger/biginteger.cpp
+iostream
+-
+string
+-
+vector
+-
+biginteger.h
+/home/dmitry/Рабочий стол/HSE-Course/module-1/homework/BigInteger/biginteger.h
+
+/home/dmitry/Рабочий стол/HSE-Course/module-1/homework/BigInteger/biginteger.h
+vector
+-
+string
+-
+iostream
+-
+
