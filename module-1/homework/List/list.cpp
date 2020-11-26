@@ -2,10 +2,9 @@
 #include "list.h"
 #include <iostream>
 
-task::list::list() :
- first(nullptr),
- last(nullptr),
- length(0)
+task::list::list() : first(nullptr),
+                     last(nullptr),
+                     length(0)
 {}
 task::list::list(const list& other)
 {
