@@ -12,7 +12,7 @@ task::list::list(const list& other)
     last = nullptr;
     length = 0;
     Node* curNow = other.first;
-    while (curNow != nullptr)
+    while (curNow)
     {
         push_back(curNow->cur);
         curNow = curNow->next;
@@ -51,7 +51,7 @@ task::list& task::list::operator=(const list& other)
     resize(other.size());
     Node* curNow1 = first;
     Node* curNow2 = other.first;
-    while (curNow2 != nullptr)
+    while (curNow2)
     {
         curNow1->cur = curNow2->cur;
         curNow1 = curNow1->next;
@@ -88,7 +88,7 @@ size_t task::list::size() const
 }
 void task::list::clear()
 {
-    while (first != nullptr)
+    while (first)
     {
         Node* n = first->next;
         delete first;
@@ -211,7 +211,7 @@ void task::list::remove(const int& value)
 {
     const int delcur = value;
     Node* curNow = first;
-    while (curNow != nullptr)
+    while (curNow)
     {
         if (curNow->cur == delcur)
         {
@@ -246,7 +246,7 @@ void task::list::remove(const int& value)
 void task::list::unique()
 {
     Node* curNow = first;
-    while (curNow != nullptr && curNow->next != nullptr)
+    while (curNow && curNow->next)
     {
         if (curNow->cur == curNow->next->cur)
         {
@@ -275,7 +275,7 @@ void task::list::sort()
     for (size_t i = 0; i < length; i++)
     {
         Node* curNow = first;
-        while (curNow != nullptr && curNow->next != nullptr)
+        while (curNow && curNow->next)
         {
             if (curNow->cur > curNow->next->cur)
             {
@@ -285,3 +285,14 @@ void task::list::sort()
         }
     }
 }
+void task::list::print()
+{
+    Node* curNow = first;
+    while (curNow)
+    {
+        std::cout << curNow->cur << " ";
+        curNow = curNow->next;
+    }
+    std::cout << std::endl;
+}
+
