@@ -125,7 +125,6 @@ int main() {
         ASSERT_EQUAL_MSG(ToStdList(list), ToStdList(list3), "Assignment operator")
     }
 
-
     {
         task::list list_task;
 
@@ -209,4 +208,5 @@ int main() {
             }
         }
     }
+
 }
