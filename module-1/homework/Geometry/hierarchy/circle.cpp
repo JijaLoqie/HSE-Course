@@ -1,8 +1,7 @@
 #include "circle.h"
 
 
-
-Circle::Circle(Point _p, double _r): cent(_p), rad(_r) {}
-double Circle::radius() {
-    return rad;
+Circle::Circle(const Point& _p, double _r): Ellipse(_p, _p, _r) {}
+double Circle::radius() const {
+    return d;
 }

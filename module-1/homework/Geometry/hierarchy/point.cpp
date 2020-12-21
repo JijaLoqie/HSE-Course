@@ -1,38 +1,80 @@
-#include <iostream>
-#include <cmath>
 #include "point.h"
 
-Point reverse(Point p) {
+#include <cmath>
+
+Point reverse(Point p)
+{
   return Point(p.y, -p.x);
 }
-double length(Point a) {
-    return sqrt(a.x * a.x + a.y*a.y);
+double length(Point a)
+{
+  return sqrt(a.x * a.x + a.y * a.y);
 }
 
+bool operator==(Point a, Point b)
+{
+  return (a.x == b.x && a.y == b.y);
+}
+bool operator!=(Point a, Point b)
+{
+  return (a.x != b.x || a.y != b.y);
+}
+Point operator+(Point a, Point b)
+{
+  return Point(a.x + b.x, a.y + b.y);
+}
+Point operator-(Point a, Point b)
+{
+  return Point(a.x - b.x, a.y - b.y);
+}
 
-bool Point::operator==(Point another) {
-    return (x == another.x && y == another.y); 
-}
-bool Point::operator!=(Point another) {
-    return (x != another.x || y != another.y); 
+Point operator*(double c, const Point &v) { return Point(c * v.x, c * v.y); }
 
-}
-Point Point::operator+(Point another) {
-    return Point(x + another.x, y + another.y);  
-}
-Point Point::operator-(Point another) {
-    return Point(x - another.x, y - another.y);
-}
-Point Point::operator*(double another) {
-    return Point(x * another, y * another);
-}
-Point::Point(double _x, double _y): x(_x), y(_y) {}
+Point operator*(const Point &v, double c) { return Point(c * v.x, c * v.y); }
 
-
-double crossProduct(const Point& a, const Point& b) {
+Point::Point(double _x, double _y) : x(_x), y(_y) {}
+Point::Point(const Point &v) : x(v.x), y(v.y) {}
+double crossProduct(const Point &a, const Point &b)
+{
   return a.x * b.y - a.y * b.x;
 }
 
-double dotProduct(const Point& a, const Point& b) {
+double dotProduct(const Point &a, const Point &b)
+{
   return a.x * b.x + a.y * b.y;
 }
+
+Point Point::rotate(double angle) const
+{
+  return Point(x * cos(angle) - y * sin(angle),
+               x * sin(angle) + y * cos(angle));
+}
+Point Point::reflex() const { return Point(-x, -y); }
+Point Point::turn90() const { return Point(y, -x); }
+bool isClockwise(const std::vector<Point> &Vertices)
+{
+  size_t n = Vertices.size();
+  for (size_t i = 0; i < n; ++i)
+  {
+    Point firstRay = Vertices[i] - Vertices[(i + 1) % n];
+    Point secondRay = Vertices[(i + 2) % n] - Vertices[(i + 1) % n];
+    if (crossProduct(firstRay, secondRay) < 0)
+    {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool inSegment(const Point &s1, const Point &s2, const Point &p)
+{
+  bool inSameLine = doubleEq(crossProduct(p - s1, s2 - s1), 0);
+  bool inRay1 = dotProduct(p - s1, s2 - s1) >= 0;
+  bool inRay2 = dotProduct(p - s2, s1 - s2) >= 0;
+  return inSameLine && inRay1 && inRay2;
+}
+bool doubleEq(double a, double b) {
+  const double eps = 1e-6;
+  return abs(a - b) < eps;
+}
+

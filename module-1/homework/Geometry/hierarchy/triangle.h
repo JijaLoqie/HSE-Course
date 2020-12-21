@@ -2,16 +2,17 @@
 #define Circle_H
 #include <iostream>
 #include "point.h"
-#include "line.h"
+#include "polygon.h"
+#include "circle.h"
 
-class Triangle : public polygon
+class Triangle : public Polygon
 {
 private:
     
 public:
     Triangle(Point p1, Point p2, Point p3);
-    Circle circumscribedCircle();
-    Circle inscribedCircle();
+    Circle circumscribedCircle() const;
+    Circle inscribedCircle() const;
 };
 
 

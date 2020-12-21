@@ -1,15 +1,13 @@
-#include "Circle.h"
-#include "polygon.h"
 #include "triangle.h"
 #include <cmath>
 
 
 Triangle::Triangle(Point a, Point b, Point c) : Polygon({a, b, c}) {}
 
-Circle Triangle::circumscribedCircle() {
-    Point A = vertices[0];
-    Point B = vertices[1];
-    Point C = vertices[2];
+Circle Triangle::circumscribedCircle() const {
+    Point A = Vertices[0];
+    Point B = Vertices[1];
+    Point C = Vertices[2];
     double a = length(B - C);
     double b = length(A - C);
     double c = length(A - B);
@@ -18,10 +16,10 @@ Circle Triangle::circumscribedCircle() {
     return Circle(I, r); 
 
 }
-Circle Triangle::inscribedCircle() {
-    Point A = vertices[0];
-    Point B = vertices[1];
-    Point C = vertices[2];
+Circle Triangle::inscribedCircle() const {
+    Point A = Vertices[0];
+    Point B = Vertices[1];
+    Point C = Vertices[2];
     double a = length(B - C);
     double b = length(A - C);
     double c = length(A - B);
@@ -29,7 +27,7 @@ Circle Triangle::inscribedCircle() {
     double k2 = b * (a + c - b);
     double k3 = c * (b + a - c);
     Point O = (A*k1 + B*k2 + C*k3) * (1/(k1 + k2 + k3));
-    double r = std::sqrt(a) * std::sqrt(b) * std::sqrt(c) / (4 * area()) 
+    double r = std::sqrt(a) * std::sqrt(b) * std::sqrt(c) / (4 * area());
     return Circle(O, r); 
 
 }
