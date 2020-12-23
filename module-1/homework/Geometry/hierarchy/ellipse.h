@@ -25,7 +25,7 @@ public:
 
     double perimeter() const override;
     double area() const override;
-    bool operator ==(const Shape& another) const override;
+    bool operator== (const Shape& another) const override;
     bool isCongruentTo(const Shape& another) const override;
     bool isSimilarTo(const Shape& another) const override;
     bool containsPoint(Point point) const override;

@@ -11,26 +11,26 @@ double length(Point a)
   return sqrt(a.x * a.x + a.y * a.y);
 }
 
-bool operator ==(Point a, Point b)
+bool operator== (Point a, Point b)
 {
   return (a.x == b.x && a.y == b.y);
 }
-bool operator !=(Point a, Point b)
+bool operator!= (Point a, Point b)
 {
   return (a.x != b.x || a.y != b.y);
 }
-Point operator +(Point a, Point b)
+Point operator+ (Point a, Point b)
 {
   return Point(a.x + b.x, a.y + b.y);
 }
-Point operator -(Point a, Point b)
+Point operator- (Point a, Point b)
 {
   return Point(a.x - b.x, a.y - b.y);
 }
 
-Point operator *(double c, const Point &v) { return Point(c * v.x, c * v.y); }
+Point operator* (double c, const Point &v) { return Point(c * v.x, c * v.y); }
 
-Point operator *(const Point &v, double c) { return Point(c * v.x, c * v.y); }
+Point operator* (const Point &v, double c) { return Point(c * v.x, c * v.y); }
 
 Point::Point(double _x, double _y) : x(_x), y(_y) {}
 Point::Point(const Point &v) : x(v.x), y(v.y) {}

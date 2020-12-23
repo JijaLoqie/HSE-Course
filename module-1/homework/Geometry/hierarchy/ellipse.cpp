@@ -48,7 +48,7 @@ void Ellipse::rotate(Point center, double angle)
 bool Ellipse::isCongruentTo(const Shape& another) const
 {
     const Shape* pointer = &another;
-    const Ellipse* anotherEllipse = dynamic_cast<const Ellipse* >(pointer);
+    const Ellipse* anotherEllipse = dynamic_cast<const Ellipse*>(pointer);
     if (anotherEllipse)
     {
         return doubleEq(Smajor(), anotherEllipse->Smajor()) &&
@@ -60,7 +60,7 @@ bool Ellipse::isCongruentTo(const Shape& another) const
 bool Ellipse::isSimilarTo(const Shape& another) const
 {
     const Shape* pointer = &another;
-    const Ellipse* anotherEllipse = dynamic_cast<const Ellipse* >(pointer);
+    const Ellipse* anotherEllipse = dynamic_cast<const Ellipse*>(pointer);
     if (anotherEllipse)
     {
         return doubleEq(Smajor() / anotherEllipse->Smajor(),
@@ -81,10 +81,10 @@ double Ellipse::area() const
     return pi * Smajor() * Sminor();
 }
 
-bool Ellipse::operator ==(const Shape& another) const
+bool Ellipse::operator== (const Shape& another) const
 {
     const Shape* pointer = &another;
-    const Ellipse* anotherEllipse = dynamic_cast<const Ellipse* >(pointer);
+    const Ellipse* anotherEllipse = dynamic_cast<const Ellipse*>(pointer);
     if (anotherEllipse)
     {
         bool firstsEq = focus1 == anotherEllipse->focus1;

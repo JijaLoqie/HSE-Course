@@ -19,13 +19,13 @@ bool doubleEq(double, double);
 Point reverse(Point p);
 double length(Point a);
 
-bool operator ==(Point a, Point b);
-bool operator !=(Point a, Point b);
-Point operator +(Point a, Point b);
-Point operator -(Point a, Point b);
+bool operator== (Point a, Point b);
+bool operator!= (Point a, Point b);
+Point operator+ (Point a, Point b);
+Point operator- (Point a, Point b);
 
-Point operator *(double c, const Point& v);
-Point operator *(const Point& v, double c);
+Point operator* (double c, const Point& v);
+Point operator* (const Point& v, double c);
 double crossProduct(const Point& a, const Point& b);
 double dotProduct(const Point& a, const Point& b);
 bool inSegment(const Point& , const Point& , const Point& );

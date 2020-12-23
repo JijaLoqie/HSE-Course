@@ -41,24 +41,23 @@ Polygon::Polygon(std::vector<Point> _v) : Vertices(_v) {}
 bool Polygon::isSimilarTo(const Shape& another) const
 {
   const Shape* pointer = &another;
-  const Polygon* anotherP = dynamic_cast<const Polygon* >(pointer);
+  const Polygon* anotherP = dynamic_cast<const Polygon*>(pointer);
   if (anotherP)
   {
-    size_t n = Vertices.size();
-    if (n == anotherP->Vertices.size())
+    if (Vertices.size() == anotherP->Vertices.size())
     {
-      for (size_t i = 0; i < n; i++)
+      for (std::size_t i = 0; i < Vertices.size(); i++)
       {
         bool isAnswerYes = true;
         double k = -1.0;
-        for (size_t j = 0; j < n; ++j)
+        for (std::size_t j = 0; j < Vertices.size(); ++j)
         {
-          Point d1 = Vertices[j] - Vertices[(j + 1) % n];
-          Point d2 = Vertices[(j + 2) % n] - Vertices[(j + 1) % n];
+          Point d1 = Vertices[j] - Vertices[(j + 1) % Vertices.size()];
+          Point d2 = Vertices[(j + 2) % Vertices.size()] - Vertices[(j + 1) % Vertices.size()];
           Point anotherD1 =
-              anotherP->Vertices[(i + j) % n] - anotherP->Vertices[(i + j + 1) % n];
-          Point anotherD2 = anotherP->Vertices[(i + j + 2) % n] -
-                            anotherP->Vertices[(i + j + 1) % n];
+              anotherP->Vertices[(i + j) % Vertices.size()] - anotherP->Vertices[(i + j + 1) % Vertices.size()];
+          Point anotherD2 = anotherP->Vertices[(i + j + 2) % Vertices.size()] -
+                            anotherP->Vertices[(i + j + 1) % Vertices.size()];
           double cp = crossProduct(d1, d2);
           double anotherCp = crossProduct(anotherD1, anotherD2);
           double dp = dotProduct(d1, d2);
@@ -85,29 +84,27 @@ bool Polygon::isSimilarTo(const Shape& another) const
 
 double Polygon::perimeter() const
 {
-  size_t n = Vertices.size();
   double result = 0;
-  for (size_t i = 0; i < n; i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
-    result += length(Vertices[(i + 1) % n] - Vertices[i]);
+    result += length(Vertices[(i + 1) % Vertices.size()] - Vertices[i]);
   }
   return result;
 }
 
 double Polygon::area() const
 {
-  size_t n = Vertices.size();
   double result = 0;
-  for (size_t i = 0; i < n; i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
-    result += crossProduct(Point(Vertices[i]), Point(Vertices[(i + 1) % n]));
+    result += crossProduct(Point(Vertices[i]), Point(Vertices[(i + 1) % Vertices.size()]));
   }
   return result / 2;
 }
 
 void Polygon::reflex(Point center)
 {
-  for (size_t i = 0; i < Vertices.size(); i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
     Point centerToPoint = Vertices[i] - center;
     Vertices[i] = center + centerToPoint.reflex();
@@ -116,22 +113,21 @@ void Polygon::reflex(Point center)
 
 void Polygon::reflex(Line axis)
 {
-  int n = Vertices.size();
-  for (size_t i = 0; i < n; i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
     Vertices[i] = axis.reflex(Vertices[i]);
   }
-  for (int i = 0; i < Vertices.size() / 2; i++)
+  for (std::size_t i = 0; i < Vertices.size() / 2; i++)
   {
     Point tmp = Vertices[i];
-    Vertices[i] = Vertices[n - i - 1];
-    Vertices[n - i - 1] = tmp;
+    Vertices[i] = Vertices[Vertices.size() - i - 1];
+    Vertices[Vertices.size() - i - 1] = tmp;
   }
 }
 
 void Polygon::scale(Point center, double coefficient)
 {
-  for (size_t i = 0; i < Vertices.size(); i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
     Vertices[i] = center + coefficient * (Vertices[i] - center);
   }
@@ -139,7 +135,7 @@ void Polygon::scale(Point center, double coefficient)
 void Polygon::rotate(Point center, double angle)
 {
   angle = angle * pi / 180;
-  for (size_t i = 0; i < Vertices.size(); i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
     Vertices[i] = center + (Vertices[i] - center).rotate(angle);
   }
@@ -148,18 +144,17 @@ void Polygon::rotate(Point center, double angle)
 bool Polygon::containsPoint(Point point) const
 {
   double ang = 0;
-  size_t n = Vertices.size();
-  for (size_t i = 0; i < n; i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
     Point firstRay = Vertices[i] - point;
-    Point secondRay = Vertices[(i + 1) % n] - point;
+    Point secondRay = Vertices[(i + 1) % Vertices.size()] - point;
     double cp = crossProduct(firstRay, secondRay);
     double dp = dotProduct(firstRay, secondRay);
     ang += std::atan2(cp, dp);
   }
-  for (size_t i = 0; i < n; i++)
+  for (std::size_t i = 0; i < Vertices.size(); i++)
   {
-    if (inSegment(Vertices[i], Vertices[(i + 1) % n], point))
+    if (inSegment(Vertices[i], Vertices[(i + 1) % Vertices.size()], point))
     {
       return true;
     }
@@ -167,23 +162,22 @@ bool Polygon::containsPoint(Point point) const
   return doubleEq(ang, 2 * pi);
 }
 
-bool Polygon::operator ==(const Shape& another) const
+bool Polygon::operator== (const Shape& another) const
 {
   const Shape* pointer = &another;
-  const Polygon* anotherP = dynamic_cast<const Polygon* >(pointer);
+  const Polygon* anotherP = dynamic_cast<const Polygon*>(pointer);
   if (anotherP)
   {
-    size_t n = Vertices.size();
-    if (n != anotherP->Vertices.size())
+    if (Vertices.size() != anotherP->Vertices.size())
     {
       return false;
     }
-    for (size_t i = 0; i < n; i++)
+    for (std::size_t i = 0; i < Vertices.size(); i++)
     {
       bool isAnswerYes = true;
-      for (size_t j = 0; j < n; ++j)
+      for (std::size_t j = 0; j < Vertices.size(); ++j)
       {
-        if (Vertices[j] != anotherP->Vertices[(i + j) % n])
+        if (Vertices[j] != anotherP->Vertices[(i + j) % Vertices.size()])
         {
           isAnswerYes = false;
           break;
@@ -200,19 +194,18 @@ bool Polygon::operator ==(const Shape& another) const
 bool Polygon::isCongruentTo(const Shape& another) const
 {
   const Shape* pointer = &another;
-  const Polygon* anotherP = dynamic_cast<const Polygon* >(pointer);
+  const Polygon* anotherP = dynamic_cast<const Polygon*>(pointer);
   if (anotherP)
   {
-    size_t n = Vertices.size();
-    if (n == anotherP->Vertices.size())
+    if (Vertices.size() == anotherP->Vertices.size())
     {
-      for (size_t i = 0; i < n; i++)
+      for (std::size_t i = 0; i < Vertices.size(); i++)
       {
         bool isAnswerYes = true;
-        for (size_t j = 0; j < n; ++j)
+        for (std::size_t j = 0; j < Vertices.size(); ++j)
         {
-          Point d = Vertices[(j + 1) % n] - Vertices[j];
-          Point anotherD = anotherP->Vertices[(i + j + 1) % n] - anotherP->Vertices[(i + j) % n];
+          Point d = Vertices[(j + 1) % Vertices.size()] - Vertices[j];
+          Point anotherD = anotherP->Vertices[(i + j + 1) % Vertices.size()] - anotherP->Vertices[(i + j) % Vertices.size()];
           if (Point(d) != Point(anotherD))
           {
             isAnswerYes = false;

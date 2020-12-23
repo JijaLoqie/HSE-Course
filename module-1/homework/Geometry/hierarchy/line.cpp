@@ -1,11 +1,11 @@
 #include "line.h"
 #include "point.h"
 
-bool Line::operator ==(Line another) const
+bool Line::operator== (Line another) const
 {
   return (p1 == another.p1 && p2 == another.p2 || p1 == another.p2 && p2 == another.p1);
 }
-bool Line::operator !=(Line another) const{
+bool Line::operator!= (Line another) const{
     return !(*this == another); 
 }
 Line Line::turn90() const {

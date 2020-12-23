@@ -4,7 +4,7 @@
 class Shape {
   virtual double perimeter() const = 0;
   virtual double area() const = 0;
-  virtual bool operator ==(const Shape& another) const = 0;
+  virtual bool operator== (const Shape& another) const = 0;
   virtual bool isCongruentTo(const Shape& another) const = 0;
   virtual bool isSimilarTo(const Shape& another) const = 0;
   virtual bool containsPoint(Point point) const = 0;
